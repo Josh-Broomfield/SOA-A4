@@ -1,0 +1,45 @@
+﻿@model IEnumerable<SOA4.MyWebService.Order>
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.custId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.poNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.orderDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.custId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.poNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.orderDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditOrder", new { orderId=item.orderId }) |
+            @Html.ActionLink("Delete", "DeleteOrder", new { orderId = item.orderId })
+        </td>
+    </tr>
+}
+
+</table>

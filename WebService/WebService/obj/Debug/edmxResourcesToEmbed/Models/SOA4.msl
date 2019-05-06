@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SOA4ModelStoreContainer" CdmEntityContainer="SOA4Entities">
+    <EntitySetMapping Name="Carts">
+      <EntityTypeMapping TypeName="SOA4Model.Cart">
+        <MappingFragment StoreEntitySet="Cart">
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="prodId" ColumnName="prodId" />
+          <ScalarProperty Name="orderId" ColumnName="orderId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="SOA4Model.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="custId" ColumnName="custId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="SOA4Model.Order">
+        <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="orderDate" ColumnName="orderDate" />
+          <ScalarProperty Name="poNumber" ColumnName="poNumber" />
+          <ScalarProperty Name="custId" ColumnName="custId" />
+          <ScalarProperty Name="orderId" ColumnName="orderId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="SOA4Model.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="inStock" ColumnName="inStock" />
+          <ScalarProperty Name="prodWeight" ColumnName="prodWeight" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="prodName" ColumnName="prodName" />
+          <ScalarProperty Name="prodId" ColumnName="prodId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Everything">
+      <EntityTypeMapping TypeName="SOA4Model.Everything">
+        <MappingFragment StoreEntitySet="Everything">
+          <ScalarProperty Name="cartProdId" ColumnName="cartProdId" />
+          <ScalarProperty Name="cartOrderId" ColumnName="cartOrderId" />
+          <ScalarProperty Name="orderId" ColumnName="orderId" />
+          <ScalarProperty Name="prodId" ColumnName="prodId" />
+          <ScalarProperty Name="custId" ColumnName="custId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

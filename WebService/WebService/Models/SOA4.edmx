@@ -1,0 +1,460 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SOA4Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="orderId" />
+            <PropertyRef Name="prodId" />
+          </Key>
+          <Property Name="orderId" Type="int" Nullable="false" />
+          <Property Name="prodId" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="custId" />
+          </Key>
+          <Property Name="custId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="lastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="phoneNumber" Type="nvarchar" MaxLength="12" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SOA4.dbo.Everything' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Everything">
+          <Key>
+            <PropertyRef Name="custId" />
+            <PropertyRef Name="prodId" />
+            <PropertyRef Name="orderId" />
+            <PropertyRef Name="cartOrderId" />
+            <PropertyRef Name="cartProdId" />
+          </Key>
+          <Property Name="custId" Type="int" Nullable="false" />
+          <Property Name="prodId" Type="int" Nullable="false" />
+          <Property Name="orderId" Type="int" Nullable="false" />
+          <Property Name="cartOrderId" Type="int" Nullable="false" />
+          <Property Name="cartProdId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="orderId" />
+          </Key>
+          <Property Name="orderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="custId" Type="int" Nullable="false" />
+          <Property Name="poNumber" Type="nvarchar" MaxLength="30" />
+          <Property Name="orderDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="prodId" />
+          </Key>
+          <Property Name="prodId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="prodName" Type="nvarchar" MaxLength="100" />
+          <Property Name="price" Type="decimal" Precision="19" Scale="2" Nullable="false" />
+          <Property Name="prodWeight" Type="decimal" Precision="19" Scale="6" Nullable="false" />
+          <Property Name="inStock" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Cart__orderId__48CFD27E">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="orderId" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="orderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cart__prodId__49C3F6B7">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="prodId" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="prodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Everythin__custI__4BAC3F29">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Everything" Type="Self.Everything" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="custId" />
+            </Principal>
+            <Dependent Role="Everything">
+              <PropertyRef Name="custId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Everythin__order__4D94879B">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="Everything" Type="Self.Everything" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="orderId" />
+            </Principal>
+            <Dependent Role="Everything">
+              <PropertyRef Name="orderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Everythin__prodI__4CA06362">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Everything" Type="Self.Everything" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="prodId" />
+            </Principal>
+            <Dependent Role="Everything">
+              <PropertyRef Name="prodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Everything__4E88ABD4">
+          <End Role="Cart" Type="Self.Cart" Multiplicity="1" />
+          <End Role="Everything" Type="Self.Everything" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cart">
+              <PropertyRef Name="orderId" />
+              <PropertyRef Name="prodId" />
+            </Principal>
+            <Dependent Role="Everything">
+              <PropertyRef Name="cartOrderId" />
+              <PropertyRef Name="cartProdId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__custId__45F365D3">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="custId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="custId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SOA4ModelStoreContainer">
+          <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Everything" EntityType="Self.Everything" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Everything].[custId] AS [custId], 
+    [Everything].[prodId] AS [prodId], 
+    [Everything].[orderId] AS [orderId], 
+    [Everything].[cartOrderId] AS [cartOrderId], 
+    [Everything].[cartProdId] AS [cartProdId]
+    FROM [dbo].[Everything] AS [Everything]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Cart__orderId__48CFD27E" Association="Self.FK__Cart__orderId__48CFD27E">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cart__prodId__49C3F6B7" Association="Self.FK__Cart__prodId__49C3F6B7">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Everythin__custI__4BAC3F29" Association="Self.FK__Everythin__custI__4BAC3F29">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Everything" EntitySet="Everything" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Everythin__order__4D94879B" Association="Self.FK__Everythin__order__4D94879B">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Everything" EntitySet="Everything" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Everythin__prodI__4CA06362" Association="Self.FK__Everythin__prodI__4CA06362">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Everything" EntitySet="Everything" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Everything__4E88ABD4" Association="Self.FK__Everything__4E88ABD4">
+            <End Role="Cart" EntitySet="Cart" />
+            <End Role="Everything" EntitySet="Everything" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__custId__45F365D3" Association="Self.FK__Order__custId__45F365D3">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SOA4Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SOA4Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Carts" EntityType="SOA4Model.Cart" />
+          <EntitySet Name="Customers" EntityType="SOA4Model.Customer" />
+          <EntitySet Name="Orders" EntityType="SOA4Model.Order" />
+          <EntitySet Name="Products" EntityType="SOA4Model.Product" />
+          <EntitySet Name="Everything" EntityType="SOA4Model.Everything" />
+          <AssociationSet Name="FK__Cart__orderId__48CFD27E" Association="SOA4Model.FK__Cart__orderId__48CFD27E">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cart__prodId__49C3F6B7" Association="SOA4Model.FK__Cart__prodId__49C3F6B7">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Everything__4E88ABD4" Association="SOA4Model.FK__Everything__4E88ABD4">
+            <End Role="Cart" EntitySet="Carts" />
+            <End Role="Everything" EntitySet="Everything" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Everythin__custI__4BAC3F29" Association="SOA4Model.FK__Everythin__custI__4BAC3F29">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Everything" EntitySet="Everything" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__custId__45F365D3" Association="SOA4Model.FK__Order__custId__45F365D3">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Everythin__order__4D94879B" Association="SOA4Model.FK__Everythin__order__4D94879B">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Everything" EntitySet="Everything" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Everythin__prodI__4CA06362" Association="SOA4Model.FK__Everythin__prodI__4CA06362">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Everything" EntitySet="Everything" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="orderId" />
+            <PropertyRef Name="prodId" />
+          </Key>
+          <Property Name="orderId" Type="Int32" Nullable="false" />
+          <Property Name="prodId" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" />
+          <NavigationProperty Name="Order" Relationship="SOA4Model.FK__Cart__orderId__48CFD27E" FromRole="Cart" ToRole="Order" />
+          <NavigationProperty Name="Product" Relationship="SOA4Model.FK__Cart__prodId__49C3F6B7" FromRole="Cart" ToRole="Product" />
+          <NavigationProperty Name="Everything" Relationship="SOA4Model.FK__Everything__4E88ABD4" FromRole="Cart" ToRole="Everything" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="custId" />
+          </Key>
+          <Property Name="custId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phoneNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Everything" Relationship="SOA4Model.FK__Everythin__custI__4BAC3F29" FromRole="Customer" ToRole="Everything" />
+          <NavigationProperty Name="Orders" Relationship="SOA4Model.FK__Order__custId__45F365D3" FromRole="Customer" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="orderId" />
+          </Key>
+          <Property Name="orderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="custId" Type="Int32" Nullable="false" />
+          <Property Name="poNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="orderDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Carts" Relationship="SOA4Model.FK__Cart__orderId__48CFD27E" FromRole="Order" ToRole="Cart" />
+          <NavigationProperty Name="Customer" Relationship="SOA4Model.FK__Order__custId__45F365D3" FromRole="Order" ToRole="Customer" />
+          <NavigationProperty Name="Everything" Relationship="SOA4Model.FK__Everythin__order__4D94879B" FromRole="Order" ToRole="Everything" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="prodId" />
+          </Key>
+          <Property Name="prodId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="prodName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Decimal" Nullable="false" Precision="19" Scale="2" />
+          <Property Name="prodWeight" Type="Decimal" Nullable="false" Precision="19" Scale="6" />
+          <Property Name="inStock" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Carts" Relationship="SOA4Model.FK__Cart__prodId__49C3F6B7" FromRole="Product" ToRole="Cart" />
+          <NavigationProperty Name="Everything" Relationship="SOA4Model.FK__Everythin__prodI__4CA06362" FromRole="Product" ToRole="Everything" />
+        </EntityType>
+        <EntityType Name="Everything">
+          <Key>
+            <PropertyRef Name="custId" />
+            <PropertyRef Name="prodId" />
+            <PropertyRef Name="orderId" />
+            <PropertyRef Name="cartOrderId" />
+            <PropertyRef Name="cartProdId" />
+          </Key>
+          <Property Name="custId" Type="Int32" Nullable="false" />
+          <Property Name="prodId" Type="Int32" Nullable="false" />
+          <Property Name="orderId" Type="Int32" Nullable="false" />
+          <Property Name="cartOrderId" Type="Int32" Nullable="false" />
+          <Property Name="cartProdId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cart" Relationship="SOA4Model.FK__Everything__4E88ABD4" FromRole="Everything" ToRole="Cart" />
+          <NavigationProperty Name="Customer" Relationship="SOA4Model.FK__Everythin__custI__4BAC3F29" FromRole="Everything" ToRole="Customer" />
+          <NavigationProperty Name="Order" Relationship="SOA4Model.FK__Everythin__order__4D94879B" FromRole="Everything" ToRole="Order" />
+          <NavigationProperty Name="Product" Relationship="SOA4Model.FK__Everythin__prodI__4CA06362" FromRole="Everything" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK__Cart__orderId__48CFD27E">
+          <End Type="SOA4Model.Order" Role="Order" Multiplicity="1" />
+          <End Type="SOA4Model.Cart" Role="Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="orderId" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="orderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cart__prodId__49C3F6B7">
+          <End Type="SOA4Model.Product" Role="Product" Multiplicity="1" />
+          <End Type="SOA4Model.Cart" Role="Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="prodId" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="prodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Everything__4E88ABD4">
+          <End Type="SOA4Model.Cart" Role="Cart" Multiplicity="1" />
+          <End Type="SOA4Model.Everything" Role="Everything" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cart">
+              <PropertyRef Name="orderId" />
+              <PropertyRef Name="prodId" />
+            </Principal>
+            <Dependent Role="Everything">
+              <PropertyRef Name="cartOrderId" />
+              <PropertyRef Name="cartProdId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Everythin__custI__4BAC3F29">
+          <End Type="SOA4Model.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="SOA4Model.Everything" Role="Everything" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="custId" />
+            </Principal>
+            <Dependent Role="Everything">
+              <PropertyRef Name="custId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__custId__45F365D3">
+          <End Type="SOA4Model.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="SOA4Model.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="custId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="custId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Everythin__order__4D94879B">
+          <End Type="SOA4Model.Order" Role="Order" Multiplicity="1" />
+          <End Type="SOA4Model.Everything" Role="Everything" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="orderId" />
+            </Principal>
+            <Dependent Role="Everything">
+              <PropertyRef Name="orderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Everythin__prodI__4CA06362">
+          <End Type="SOA4Model.Product" Role="Product" Multiplicity="1" />
+          <End Type="SOA4Model.Everything" Role="Everything" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="prodId" />
+            </Principal>
+            <Dependent Role="Everything">
+              <PropertyRef Name="prodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SOA4ModelStoreContainer" CdmEntityContainer="SOA4Entities">
+          <EntitySetMapping Name="Carts">
+            <EntityTypeMapping TypeName="SOA4Model.Cart">
+              <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="prodId" ColumnName="prodId" />
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="SOA4Model.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="custId" ColumnName="custId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="SOA4Model.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="orderDate" ColumnName="orderDate" />
+                <ScalarProperty Name="poNumber" ColumnName="poNumber" />
+                <ScalarProperty Name="custId" ColumnName="custId" />
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="SOA4Model.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="inStock" ColumnName="inStock" />
+                <ScalarProperty Name="prodWeight" ColumnName="prodWeight" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="prodName" ColumnName="prodName" />
+                <ScalarProperty Name="prodId" ColumnName="prodId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Everything">
+            <EntityTypeMapping TypeName="SOA4Model.Everything">
+              <MappingFragment StoreEntitySet="Everything">
+                <ScalarProperty Name="cartProdId" ColumnName="cartProdId" />
+                <ScalarProperty Name="cartOrderId" ColumnName="cartOrderId" />
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
+                <ScalarProperty Name="prodId" ColumnName="prodId" />
+                <ScalarProperty Name="custId" ColumnName="custId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

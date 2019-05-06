@@ -1,0 +1,57 @@
+﻿@model IEnumerable<SOA4.MyWebService.Product>
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.prodId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prodName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prodWeight)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.inStock)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.prodId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.prodName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.prodWeight)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.inStock)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditProduct", new { prodId = item.prodId }) |
+            @Html.ActionLink("Delete", "DeleteProduct", new { prodId = item.prodId })
+        </td>
+    </tr>
+}
+
+</table>

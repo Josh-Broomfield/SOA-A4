@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Crazy Melvin's Shopping Emporium";
+}
+
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken();
+    <div class="Center">
+        <img src="~/Images/top.jpg" alt="Mountain View" />
+        <br />
+        <div>@ViewBag.Error</div>
+        <br />
+        Here at Crazy Melvin's we believe in selling things cheap !! That's why our User Interface is cheap !
+        <br />
+        Use the buttons below to tell me what you'd like to do here at Crazy Melvin's ??
+        <br />
+        <input name="btnSubmit" type="submit" value="Search" />
+        <input name="btnSubmit" type="submit" value="Insert some Stuff" />
+        <input name="btnSubmit" type="submit" value="Update some Stuff" />
+        <input name="btnSubmit" type="submit" value="Delete some Stuff" />
+        <br />
+        <input name="btnSubmit" type="submit" value="Get me outta here !" />
+        <br />
+        <img src="~/Images/IHeartMelvin.jpg" />
+    </div>
+}

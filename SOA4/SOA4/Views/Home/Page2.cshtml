@@ -1,0 +1,91 @@
+﻿@model SOA4.MyWebService.Everything
+
+@{
+    ViewBag.Title = "Page2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm((String)@ViewBag.PostMethod, "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    
+    <div>@ViewBag.Error</div>
+
+    <div class="form-horizontal">
+        <h4>Page2</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <h4>Customer</h4>
+
+        @Html.LabelFor(model => model.Customer.custId)
+        @Html.EditorFor(model => model.Customer.custId)
+
+        @Html.LabelFor(model => model.Customer.firstName)
+        @Html.EditorFor(model => model.Customer.firstName)
+
+        @Html.LabelFor(model => model.Customer.lastName)
+        @Html.EditorFor(model => model.Customer.lastName)
+
+        @Html.LabelFor(model => model.Customer.phoneNumber)
+        @Html.EditorFor(model => model.Customer.phoneNumber)
+
+
+        <h4>Product</h4>
+
+        @Html.LabelFor(model => model.Product.prodId)
+        @Html.EditorFor(model => model.Product.prodId)
+
+        @Html.LabelFor(model => model.Product.prodName)
+        @Html.EditorFor(model => model.Product.prodName)
+
+        @Html.LabelFor(model => model.Product.price)
+        @Html.EditorFor(model => model.Product.price)
+
+        @Html.LabelFor(model => model.Product.prodWeight)
+        @Html.EditorFor(model => model.Product.prodWeight)
+
+        @Html.LabelFor(model => model.Product.inStock)
+        @Html.EditorFor(model => model.Product.inStock)
+
+
+        <h4>Order</h4>
+
+        @Html.LabelFor(model => model.Order.orderId)
+        @Html.EditorFor(model => model.Order.orderId)
+
+        @Html.LabelFor(model => model.Order.custId)
+        @Html.EditorFor(model => model.Order.custId)
+
+        @Html.LabelFor(model => model.Order.poNumber)
+        @Html.EditorFor(model => model.Order.poNumber)
+
+        @Html.LabelFor(model => model.Order.orderDate)
+        @Html.EditorFor(model => model.Order.orderDate)
+
+
+        <h4>Cart</h4>
+
+        @Html.LabelFor(model => model.Cart.orderId)
+        @Html.EditorFor(model => model.Cart.orderId)
+
+        @Html.LabelFor(model => model.Cart.prodId)
+        @Html.EditorFor(model => model.Cart.prodId)
+
+        @Html.LabelFor(model => model.Cart.quantity)
+        @Html.EditorFor(model => model.Cart.quantity)
+
+        @*@{Html.RenderPartial("~/Views/Home/PartialEditCustomer.cshtml", Model.cust);}*@
+
+        <input type="submit" value="Save" class="btn btn-default" />
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back", "Index")
+</div>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}

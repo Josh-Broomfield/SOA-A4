@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SOA4Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Cart">
+    <Key>
+      <PropertyRef Name="orderId" />
+      <PropertyRef Name="prodId" />
+    </Key>
+    <Property Name="orderId" Type="int" Nullable="false" />
+    <Property Name="prodId" Type="int" Nullable="false" />
+    <Property Name="quantity" Type="int" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="custId" />
+    </Key>
+    <Property Name="custId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstName" Type="nvarchar" MaxLength="50" />
+    <Property Name="lastName" Type="nvarchar" MaxLength="50" />
+    <Property Name="phoneNumber" Type="nvarchar" MaxLength="12" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'SOA4.dbo.Everything' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Everything">
+    <Key>
+      <PropertyRef Name="custId" />
+      <PropertyRef Name="prodId" />
+      <PropertyRef Name="orderId" />
+      <PropertyRef Name="cartOrderId" />
+      <PropertyRef Name="cartProdId" />
+    </Key>
+    <Property Name="custId" Type="int" Nullable="false" />
+    <Property Name="prodId" Type="int" Nullable="false" />
+    <Property Name="orderId" Type="int" Nullable="false" />
+    <Property Name="cartOrderId" Type="int" Nullable="false" />
+    <Property Name="cartProdId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="orderId" />
+    </Key>
+    <Property Name="orderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="custId" Type="int" Nullable="false" />
+    <Property Name="poNumber" Type="nvarchar" MaxLength="30" />
+    <Property Name="orderDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="prodId" />
+    </Key>
+    <Property Name="prodId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="prodName" Type="nvarchar" MaxLength="100" />
+    <Property Name="price" Type="decimal" Precision="19" Scale="2" Nullable="false" />
+    <Property Name="prodWeight" Type="decimal" Precision="19" Scale="6" Nullable="false" />
+    <Property Name="inStock" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Cart__orderId__48CFD27E">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="orderId" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="orderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Cart__prodId__49C3F6B7">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="prodId" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="prodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Everythin__custI__4BAC3F29">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Everything" Type="Self.Everything" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="custId" />
+      </Principal>
+      <Dependent Role="Everything">
+        <PropertyRef Name="custId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Everythin__order__4D94879B">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="Everything" Type="Self.Everything" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="orderId" />
+      </Principal>
+      <Dependent Role="Everything">
+        <PropertyRef Name="orderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Everythin__prodI__4CA06362">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="Everything" Type="Self.Everything" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="prodId" />
+      </Principal>
+      <Dependent Role="Everything">
+        <PropertyRef Name="prodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Everything__4E88ABD4">
+    <End Role="Cart" Type="Self.Cart" Multiplicity="1" />
+    <End Role="Everything" Type="Self.Everything" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cart">
+        <PropertyRef Name="orderId" />
+        <PropertyRef Name="prodId" />
+      </Principal>
+      <Dependent Role="Everything">
+        <PropertyRef Name="cartOrderId" />
+        <PropertyRef Name="cartProdId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Order__custId__45F365D3">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="custId" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="custId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SOA4ModelStoreContainer">
+    <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Everything" EntityType="Self.Everything" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Everything].[custId] AS [custId], 
+    [Everything].[prodId] AS [prodId], 
+    [Everything].[orderId] AS [orderId], 
+    [Everything].[cartOrderId] AS [cartOrderId], 
+    [Everything].[cartProdId] AS [cartProdId]
+    FROM [dbo].[Everything] AS [Everything]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__Cart__orderId__48CFD27E" Association="Self.FK__Cart__orderId__48CFD27E">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="Cart" EntitySet="Cart" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Cart__prodId__49C3F6B7" Association="Self.FK__Cart__prodId__49C3F6B7">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Cart" EntitySet="Cart" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Everythin__custI__4BAC3F29" Association="Self.FK__Everythin__custI__4BAC3F29">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Everything" EntitySet="Everything" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Everythin__order__4D94879B" Association="Self.FK__Everythin__order__4D94879B">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="Everything" EntitySet="Everything" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Everythin__prodI__4CA06362" Association="Self.FK__Everythin__prodI__4CA06362">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Everything" EntitySet="Everything" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Everything__4E88ABD4" Association="Self.FK__Everything__4E88ABD4">
+      <End Role="Cart" EntitySet="Cart" />
+      <End Role="Everything" EntitySet="Everything" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Order__custId__45F365D3" Association="Self.FK__Order__custId__45F365D3">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,11 @@
+G:\SETYear3\trunk\SOA\A4\WebService\WebService\bin\WebService.dll.config
+G:\SETYear3\trunk\SOA\A4\WebService\WebService\bin\WebService.dll
+G:\SETYear3\trunk\SOA\A4\WebService\WebService\bin\WebService.pdb
+G:\SETYear3\trunk\SOA\A4\WebService\WebService\bin\EntityFramework.dll
+G:\SETYear3\trunk\SOA\A4\WebService\WebService\bin\EntityFramework.SqlServer.dll
+G:\SETYear3\trunk\SOA\A4\WebService\WebService\bin\EntityFramework.xml
+G:\SETYear3\trunk\SOA\A4\WebService\WebService\bin\EntityFramework.SqlServer.xml
+G:\SETYear3\trunk\SOA\A4\WebService\WebService\obj\Debug\WebService.csprojResolveAssemblyReference.cache
+G:\SETYear3\trunk\SOA\A4\WebService\WebService\obj\Debug\WebService.csproj.CoreCompileInputs.cache
+G:\SETYear3\trunk\SOA\A4\WebService\WebService\obj\Debug\WebService.dll
+G:\SETYear3\trunk\SOA\A4\WebService\WebService\obj\Debug\WebService.pdb

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<SOA4.MyWebService.Cart>
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.orderId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prodId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.quantity)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.orderId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.prodId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.quantity)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditCart", "Home", new { orderId = item.orderId, prodId = item.prodId }, null) |
+            @Html.ActionLink("Delete", "DeleteCart", "Home", new { orderId = item.orderId, prodId = item.prodId }, null)
+        </td>
+    </tr>
+}
+
+</table>

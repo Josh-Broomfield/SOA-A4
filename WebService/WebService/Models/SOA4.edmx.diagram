@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8afdcc144cfd487c82b124a544561ff1" Name="Diagram1">
+        <EntityTypeShape EntityType="SOA4Model.Cart" Width="1.5" PointX="11.125" PointY="3.375" />
+        <EntityTypeShape EntityType="SOA4Model.Customer" Width="1.5" PointX="2.25" PointY="2.75" />
+        <EntityTypeShape EntityType="SOA4Model.Order" Width="1.5" PointX="7.375" PointY="3.25" />
+        <EntityTypeShape EntityType="SOA4Model.Product" Width="1.5" PointX="15.875" PointY="2.875" />
+        <EntityTypeShape EntityType="SOA4Model.Everything" Width="1.5" PointX="9.375" PointY="7.375" />
+        <AssociationConnector Association="SOA4Model.FK__Cart__orderId__48CFD27E" />
+        <AssociationConnector Association="SOA4Model.FK__Cart__prodId__49C3F6B7" />
+        <AssociationConnector Association="SOA4Model.FK__Everything__4E88ABD4" />
+        <AssociationConnector Association="SOA4Model.FK__Everythin__custI__4BAC3F29" />
+        <AssociationConnector Association="SOA4Model.FK__Order__custId__45F365D3" />
+        <AssociationConnector Association="SOA4Model.FK__Everythin__order__4D94879B" />
+        <AssociationConnector Association="SOA4Model.FK__Everythin__prodI__4CA06362" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
